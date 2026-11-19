@@ -86,3 +86,11 @@ rm -rf \
     /usr/lib/firmware/rtl_nic \
     /usr/lib/firmware/ti-connectivity \
     /usr/lib/firmware/xe
+
+# The purges above also drop device firmware that 40-vendor-system-files.sh
+# copied from system_files/ — the paths collide (cirrus/cs35l41-* for thyme's
+# CS35L41 amps, qcom/sm8250/umi/* …). Re-apply the vendored tree last so the
+# device-validated files always win over the distro packages.
+if [ -d /ctx/system_files/usr/lib/firmware ]; then
+    cp -a /ctx/system_files/usr/lib/firmware/. /usr/lib/firmware/
+fi
