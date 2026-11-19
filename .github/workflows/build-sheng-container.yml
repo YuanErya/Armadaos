@@ -173,7 +173,7 @@ jobs:
           else
             sudo buildah bud \
               --build-arg ARMADA_VERSION="${ARMADA_VERSION}" \
-              --build-arg KERNEL_PKG="${KERNEL_REF}" \
+              --build-arg KERNEL_REF="${KERNEL_REF}" \
               --format docker --tls-verify=true \
               --skip-unused-stages=false \
               --target=armada-rootfs \
