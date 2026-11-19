@@ -101,6 +101,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euxo pipefail
+          # ghcr.io rejects uppercase repository names; owners such as
+          # "YuanErya" must be lowercased before building the image reference.
+          IMAGE_REGISTRY="${IMAGE_REGISTRY,,}"
           IMAGE="${IMAGE_REGISTRY}/armada-thyme-kernel"
           TAG="$(TZ=America/New_York date +%Y%m%d)-$(git rev-parse --short HEAD)"
           sudo buildah bud --platform linux/arm64 -t "${IMAGE}:${TAG}" kernel-thyme/
